@@ -1,0 +1,42 @@
+QUESTION:
+
+Grading Students
+
+ANSWER:
+
+<?php
+
+function gradingStudents($grades) {
+    $final_g = array();
+    for($i = 0; $i < count($grades); $i++) {
+        if($grades[$i] < 38) {
+            $final_g[] = $grades[$i];
+        } else {
+            if(($grades[$i] % 5) == 0) {
+                $final_g[] = $grades[$i];
+            } else if(($grades[$i] % 5) >= 3) {
+                if(($grades[$i] % 5) == 3) {
+                    $final_g[] = $grades[$i] + 2;
+                } else if(($grades[$i] % 5) == 4) {
+                    $final_g[] = $grades[$i] + 1;
+                } else {
+                    $final_g[] = $grades[$i];
+                }
+            } else {
+                $final_g[] = $grades[$i];
+            }
+        }
+    }
+    return $final_g;
+}
+
+$fptr = fopen(getenv("OUTPUT_PATH"), "w");
+$grades_count = intval(trim(fgets(STDIN)));
+$grades = array();
+for ($i = 0; $i < $grades_count; $i++) {
+    $grades_item = intval(trim(fgets(STDIN)));
+    $grades[] = $grades_item;
+}
+$result = gradingStudents($grades);
+fwrite($fptr, implode("\n", $result) . "\n");
+fclose($fptr);

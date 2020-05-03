@@ -1,0 +1,35 @@
+QUESTION:
+
+Minimax Sum
+
+ANSWER:
+
+<?php
+
+function miniMaxSum($arr) {
+    $arr_sum = array();
+    $temp_sum = 0;
+    $skip_key = 0;
+    for($i = 0; $i < count($arr); $i++) {
+        $arr_sum[] = calculate($arr, $skip_key);
+        $skip_key++;
+    }
+
+    echo min($arr_sum)." ".max($arr_sum);
+}
+
+function calculate($arr, $skip_key) {
+    $temp_sum = 0;
+    for($i = 0; $i < count($arr); $i++) {
+        if($skip_key != $i) {
+            $temp_sum += $arr[$i];
+        }
+    }
+    return $temp_sum;
+}
+
+$stdin = fopen("php://stdin", "r");
+fscanf($stdin, "%[^\n]", $arr_temp);
+$arr = array_map('intval', preg_split('/ /', $arr_temp, -1, PREG_SPLIT_NO_EMPTY));
+miniMaxSum($arr);
+fclose($stdin);
